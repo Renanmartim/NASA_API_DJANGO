@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Api Nasa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    
+    <style>
+        header{
+            background-image: url('{{imagem}}');
+            height: 100vh;
+            min-height: 400px;
+            background-size: cover;
+        }
+        .navbar .navbar-brand{
+            color: white;
+            font-size: 30px;
+        }
+        .bg-dark{
+            background-color: rgba(255,255,255,0.4) !important;
+        }
+
+
+
+    </style>
+  </head>
+
+    <body>
+        <header>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light bg-transparent fixed-top shadow">
+            <div class="container">
+                <a class="navbar-brand d-flex">Welcome</a>
+                <form action="{% url 'home' %}" method="POST" class="d-flex" role="search"> {% csrf_token %}
+                    <div class="input-group">
+                    <input id='input' class="form-control me-2" type="search" placeholder="Procurar imagem" aria-label="Search" name='input'></input>
+                    <button id='submit' class="btn btn-danger" type="submit" name='submit' disabled>Procurar</button>
+                    </div>
+                </form>
+                <a class="btn btn-primary"  href="{% url 'sair' %}">sair</a>
+            </div>
+        </nav>
+        <div class="container top-10">
+            <h1 class="text-center">Sobre a imagem de hoje</h1>
+            <p>{{sobre}}</p>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            var nav = document.querySelector('nav');
+            window.addEventListener('scroll', function () {
+                if(window.pageYOffset >= 100){
+                    nav.classList.add('bg-dark');
+                } else{
+                    nav.classList.remove('bg-dark');
+
+                }
+            })
+            const inputField = document.getElementById('input');
+            const submitButton = document.getElementById('submit');
+
+            inputField.addEventListener('input', function() {
+            if (inputField.value.length >= 5) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+
+            });
+        </script>
+        
+    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+</html>
